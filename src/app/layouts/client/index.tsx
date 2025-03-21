@@ -18,11 +18,8 @@ const Layout = () => {
   return (
     <AppShell
       header={{ height: 70 }}
-      navbar={{
-        width: 300,
-        breakpoint: "sm",
-        collapsed: { desktop: true, mobile: !opened },
-      }}
+      navbar={{ width: 300, breakpoint: "sm", collapsed: { mobile: !opened } }}
+      padding="md"
     >
       {config.toolbar.display && <Toolbar opened={opened} toggle={toggle} />}
       {config.navbar.display && <Navbar />}

@@ -1,11 +1,18 @@
-import { AppShell, UnstyledButton } from "@mantine/core";
+import { AppShell, Group } from "@mantine/core";
 const Navbar = () => {
+  const tabs = ["Clubs", "Borrow & Lend", "More"];
   return (
-    <AppShell.Navbar py="md" px={4}>
-      <UnstyledButton className={""}>Home</UnstyledButton>
-      <UnstyledButton className={""}>Blog</UnstyledButton>
-      <UnstyledButton className={""}>Contacts</UnstyledButton>
-      <UnstyledButton className={""}>Support</UnstyledButton>
+    <AppShell.Navbar py="md" px={4} className="">
+      <Group ml="xl" gap={20} className="!flex-col !items-start">
+        {tabs.map((tab) => (
+          <ul
+            key={tab}
+            className="cursor-pointer text-lg font-semibold text-[#402905]"
+          >
+            {tab}
+          </ul>
+        ))}
+      </Group>
     </AppShell.Navbar>
   );
 };

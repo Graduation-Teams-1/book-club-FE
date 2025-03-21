@@ -10,10 +10,9 @@ const Toolbar = ({
   opened: boolean;
   toggle: () => void;
 }) => {
-  const tabs = ["Clubs", "Borrow & Lend", "More"];
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
-
+  const tabs = ["Clubs", "Borrow & Lend", "More"];
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -30,7 +29,7 @@ const Toolbar = ({
 
   return (
     <AppShell.Header
-      withBorder={false}
+      withBorder={true}
       px={40}
       pt={5}
       className={
@@ -41,17 +40,24 @@ const Toolbar = ({
     >
       <Group h="100%">
         <Group justify="space-between" style={{ flex: 1 }}>
-          <Image src={logo} alt="logo" height={40} />
-          <Group ml="xl" gap={60} visibleFrom="sm">
+          <Image
+            src={logo}
+            alt="logo"
+            className="!h-[50px] !w-[300px] cursor-pointer"
+            onClick={() => navigate("/")}
+          />
+
+          <Group ml="xl" gap={20} visibleFrom="sm" className="">
             {tabs.map((tab) => (
               <ul
                 key={tab}
-                className="cursor-pointer text-lg font-semibold text-[#402905] hover:underline"
+                className="cursor-pointer text-lg font-semibold text-[#402905]"
               >
                 {tab}
               </ul>
             ))}
           </Group>
+
           <Group gap="md">
             <Button
               variant="outline"
