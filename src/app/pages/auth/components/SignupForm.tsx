@@ -73,7 +73,7 @@ const AuthForm = ({ isSigninOrUp }: AuthFormProps) => {
   const color = strength === 100 ? "teal" : strength > 50 ? "yellow" : "red";
 
   return (
-    <div className="flex h-screen w-1/2 flex-col items-center justify-center gap-5 px-24 py-4">
+    <div className="max-w-1/2 flex h-screen flex-col items-center justify-center gap-5 px-4 py-4 xl:px-24">
       <Text className="text-center">Welcome to Circels!</Text>
 
       <div className="flex w-[250px] justify-between rounded-full bg-[#EAD0A880] px-[8px] py-[5px]">
@@ -164,9 +164,9 @@ const AuthForm = ({ isSigninOrUp }: AuthFormProps) => {
       </Popover>
 
       <div className="flex items-center justify-center gap-4">
-        <div className="w-[200px] flex-1 border-t border-[#1C345442]"></div>
+        <div className="w-[100px] flex-1 border-t border-[#1C345442] md:w-[150px] xl:w-[200px]"></div>
         <span className="text-[15px] font-normal text-primary-900">OR</span>
-        <div className="w-[200px] flex-1 border-t border-[#1C345442]"></div>
+        <div className="w-[100px] flex-1 border-t border-[#1C345442] md:w-[150px] xl:w-[200px]"></div>
       </div>
 
       <GoogleButton w={235} h={50}>

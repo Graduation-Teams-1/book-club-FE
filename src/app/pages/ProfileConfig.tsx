@@ -1,32 +1,31 @@
 import { lazy } from "react";
 import { PageConfig } from "base/types";
 
-// const LandingPage = lazy(() => import("./LandingPage"));
-const HomePage = lazy(() => import("./client/home/HomePage"));
+const ProfilePage = lazy(() => import("./client/profile/ProfilePage"));
 
-const HomeConfig: PageConfig = {
+const ProfileConfig: PageConfig = {
   settings: {
     layout: {
       style: "Client",
       config: {
         navbar: {
-          display: false,
+          display: true,
         },
         toolbar: {
           display: true,
         },
         footer: {
-          display: true,
+          display: false,
         },
       },
     },
   },
   routes: [
     {
-      path: "/",
-      element: <HomePage />,
+      path: "/profile",
+      element: <ProfilePage />,
     },
   ],
 };
 
-export default HomeConfig;
+export default ProfileConfig;
