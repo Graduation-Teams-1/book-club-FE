@@ -2,6 +2,7 @@ import { lazy } from "react";
 import { PageConfig } from "base/types";
 
 const ClubsPage = lazy(() => import("./client/clubs/ClubsPage"));
+const ClubDetailsPage = lazy(() => import("./client/clubs/ClubDetailsPage"));
 
 const ClubsConfig: PageConfig = {
   settings: {
@@ -24,6 +25,10 @@ const ClubsConfig: PageConfig = {
     {
       path: "/clubs",
       element: <ClubsPage />,
+    },
+    {
+      path: "/clubs/:id",
+      element: <ClubDetailsPage />,
     },
   ],
 };

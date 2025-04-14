@@ -3,7 +3,34 @@ import export_icon from "~/assets/icons/export_icon.svg";
 import settings_icon from "~/assets/icons/Settings_icon.svg";
 import link_icon from "~/assets/icons/link_icon.svg";
 import EditProfile from "./EditProfile";
-import ProfileTabs from "../components/ProfileTabs";
+import CustomTabs from "../components/CustomTabs";
+import PostsPage from "./subpages/PostsPage";
+import ClubsPage from "./subpages/ClubsPage";
+import SavedPage from "./subpages/SavedPage";
+import TrackerPage from "./subpages/TrackerPage";
+
+const tabsData = [
+  {
+    value: "1",
+    label: "Tracker",
+    content: <TrackerPage />,
+  },
+  {
+    value: "2",
+    label: "Posts",
+    content: <PostsPage />,
+  },
+  {
+    value: "3",
+    label: "Clubs",
+    content: <ClubsPage />,
+  },
+  {
+    value: "4",
+    label: "Saved",
+    content: <SavedPage />,
+  },
+];
 
 const ProfilePage = () => {
   return (
@@ -77,7 +104,9 @@ const ProfilePage = () => {
         <EditProfile />
 
         {/* Tabs Section */}
-        <ProfileTabs />
+        <div className="mt-8 w-full">
+          <CustomTabs tabs={tabsData} />
+        </div>
       </div>
     </>
   );
