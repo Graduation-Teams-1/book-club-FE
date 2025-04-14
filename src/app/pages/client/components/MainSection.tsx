@@ -1,12 +1,10 @@
-import {
-  GooglePlayButton,
-  AppStoreButton,
-  ButtonsContainer,
-} from "react-mobile-app-button";
+import { AiOutlineApple } from "react-icons/ai";
+import { IoLogoGooglePlaystore } from "react-icons/io5";
 
 import person from "~/assets/imgs/pana.png";
 import header from "~/assets/imgs/Header.png";
 import { Button, Image } from "@mantine/core";
+import { Link } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 const MainSection = () => {
   const APKUrl = "https://play.google.com/store/games?device=windows";
@@ -30,19 +28,14 @@ const MainSection = () => {
           >
             Get Started
           </Button>
-          <ButtonsContainer>
-            <GooglePlayButton
-              url={APKUrl}
-              theme={"light"}
-              className="!border-gray-400 !py-[1.65rem]"
-            />
-
-            <AppStoreButton
-              url={IOSUrl}
-              theme={"light"}
-              className="!border-gray-400 !py-[1.65rem]"
-            />
-          </ButtonsContainer>
+          <div className="flex gap-4">
+            <Link to={APKUrl} target="_blank">
+              <IoLogoGooglePlaystore className="h-14 w-14 cursor-pointer" />
+            </Link>
+            <Link to={IOSUrl} target="_blank">
+              <AiOutlineApple className="h-14 w-14 cursor-pointer" />
+            </Link>
+          </div>
         </div>
         <Image src={person} alt="person" className="!w-1/3 !object-contain" />
       </div>

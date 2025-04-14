@@ -1,23 +1,18 @@
-import { Button, Tabs } from "@mantine/core";
 import profilePic from "~/assets/imgs/profilePic.png";
-import export_icon from "~/assets/icons/export_icon.svg"
-import settings_icon from "~/assets/icons/Settings_icon.svg"
-import link_icon from "~/assets/icons/link_icon.svg"
-import PostsPage from "./subpages/PostsPage";
-import ClubsPage from "./subpages/ClubsPage";
-import SavedPage from "./subpages/SavedPage";
-import TrackerPage from "./subpages/TrackerPage";
+import export_icon from "~/assets/icons/export_icon.svg";
+import settings_icon from "~/assets/icons/Settings_icon.svg";
+import link_icon from "~/assets/icons/link_icon.svg";
+import EditProfile from "./EditProfile";
+import ProfileTabs from "../components/ProfileTabs";
 
 const ProfilePage = () => {
   return (
-    <div className="relative flex h-[100vh] items-center justify-center">
-      {/* icons */}
-      <div className="absolute right-0 top-0 flex items-center gap-2">
+    <>
+      <div className="flex items-center justify-end gap-4 px-20 pt-24">
         <img src={export_icon} alt="" />
         <img src={settings_icon} alt="" />
       </div>
-
-      <div className="flex max-w-full flex-col items-center rounded-lg bg-white shadow-md">
+      <div className="m-auto flex w-1/3 flex-col items-center justify-center pt-16">
         {/* Profile Header */}
         <div className="flex w-full items-center justify-between py-4">
           <div className="flex items-center gap-4">
@@ -60,56 +55,31 @@ const ProfilePage = () => {
 
         {/* Tags */}
         <div className="mt-4 flex gap-2">
-          <div className="text-balck rounded-full bg-[#EAD0A880] px-3 py-1">
+          <div className="text-balck rounded-lg bg-[#EAD0A880] px-3 py-1">
             Fiction
           </div>
-          <div className="text-black rounded-full bg-[#EAD0A880] px-3 py-1">
+          <div className="text-black rounded-lg bg-[#EAD0A880] px-3 py-1">
             Novels
           </div>
-          <div className="text-black rounded-full bg-[#EAD0A880] px-3 py-1">
+          <div className="text-black rounded-lg bg-[#EAD0A880] px-3 py-1">
             Classic
           </div>
         </div>
 
         {/* Links (Placeholder) */}
-        <div className="mt-4">
-          <p className="text-[#D4A017]">
-            <img src={link_icon} />
-            Twitter
-          </p>
+        <div className="mt-4 flex items-center gap-2">
+          <img src={link_icon} />
+          <p className="text-[#D4A017]">Twitter</p>
         </div>
 
         {/* Edit Profile Button */}
-        <Button
-          fullWidth
-          variant="outline"
-          className="mt-4 border-2 border-[#270909] p-2 font-bold"
-          classNames={{
-            root: "!border-[#270909]", // Ensures the border color is correctly applied
-            label: "!text-[#270909]", // Changes the text color
-          }}
-        >
-          Edit Profile
-        </Button>
+
+        <EditProfile />
 
         {/* Tabs Section */}
-        <div className="mt-8 w-full">
-          <Tabs variant="pills" defaultValue="Tracker">
-            <Tabs.List>
-              <Tabs.Tab value="Tracker">Tracker</Tabs.Tab>
-              <Tabs.Tab value="Posts">Posts</Tabs.Tab>
-              <Tabs.Tab value="Clubs">Clubs</Tabs.Tab>
-              <Tabs.Tab value="Saved">Saved</Tabs.Tab>
-            </Tabs.List>
-
-            <Tabs.Panel value="Tracker"><TrackerPage /> </Tabs.Panel>
-            <Tabs.Panel value="Posts"><PostsPage /></Tabs.Panel>
-            <Tabs.Panel value="Clubs"><ClubsPage /></Tabs.Panel>
-            <Tabs.Panel value="Saved"><SavedPage /></Tabs.Panel>
-          </Tabs>
-        </div>
+        <ProfileTabs />
       </div>
-    </div>
+    </>
   );
 };
 
