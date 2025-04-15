@@ -1,5 +1,6 @@
 import { lazy } from "react";
 import { PageConfig } from "base/types";
+import TellUs from "./components/TellUs";
 
 const SignupPage = lazy(() => import("./signup/SignupPage"));
 const SigninPage = lazy(() => import("./signin/SigninPage"));
@@ -52,6 +53,11 @@ const AuthConfig: PageConfig = {
     {
       path: "/check-email",
       element: <CheckEmailPage />,
+      auth: [],
+    },
+    {
+      path: "/tell-us",
+      element: <TellUs />,
       auth: [],
     },
   ],

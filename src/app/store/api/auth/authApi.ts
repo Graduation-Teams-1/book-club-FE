@@ -1,28 +1,29 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BaseQueryType } from "base/types";
 import { BASE_URL } from "app/configs/apiConfig";
-import { User } from "../../types";
+import { User, UserSignupBody } from "../../types";
 
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: BASE_URL + "/auth",
+    baseUrl: BASE_URL + "Account",
     credentials: "include",
   }) as BaseQueryType,
   tagTypes: ["User"],
-  endpoints: ({ query }) => ({
+  endpoints: ({ query, mutation }) => ({
     profile: query<User, void>({
       query: () => "profile",
       providesTags: ["User"],
     }),
-    // signup: mutation<User, UserSignupBody>({
-    //   query: (body) => ({
-    //     url: "/sign-up",
-    //     method: "POST",
-    //     body,
-    //   }),
-    //   invalidatesTags: ["User"],
-    // }),
+    signup: mutation<User, UserSignupBody>({
+      query: (body: UserSignupBody) => ({
+        url: "/register",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["User"],
+    }),
+
     // initSignupVerification: mutation<User, InitSignupVerificationBody>({
     //   query: (body) => ({
     //     url: "/init-signup-verification",
@@ -100,7 +101,7 @@ export const authApi = createApi({
 
 export const {
   useProfileQuery,
-  // useSignupMutation,
+  useSignupMutation,
   // useInitSignupVerificationMutation,
   // useSignupVerificationMutation,
   // useSigninMutation,

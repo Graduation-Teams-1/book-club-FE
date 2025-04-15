@@ -12,7 +12,7 @@ const AuthForm = ({ isSigninOrUp }: AuthFormProps) => {
   const navigate = useNavigate();
 
   return (
-    <div className="max-w-1/2 flex h-screen flex-col items-center justify-center gap-5 px-4 py-4 xl:px-24">
+    <div className="max-w-1/2 flex h-screen flex-col items-center justify-center gap-3 p-4 xl:px-24">
       <Text className="text-center">Welcome to Circels!</Text>
 
       <div className="flex w-[250px] justify-between rounded-full bg-[#EAD0A880] px-[8px] py-[5px]">
@@ -97,7 +97,13 @@ const AuthForm = ({ isSigninOrUp }: AuthFormProps) => {
         }}
       />
 
-      <Button size="lg" className="!rounded-full" color="#402905" fullWidth>
+      <Button
+        size="lg"
+        className="!rounded-full"
+        color="#402905"
+        fullWidth
+        onClick={() => navigate("/tell-us")}
+      >
         Register
       </Button>
     </div>

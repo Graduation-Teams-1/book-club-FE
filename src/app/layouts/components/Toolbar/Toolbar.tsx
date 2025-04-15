@@ -62,11 +62,11 @@ const Toolbar = ({
             <Button
               variant="outline"
               c="#402905"
-              onClick={() => navigate("/sign-up")}
+              onClick={() => navigate("/sign-in")}
             >
-              Sign up
+              Sign in
             </Button>
-            <Button color="#76552B" onClick={() => navigate("/sign-in")}>
+            <Button color="#76552B" onClick={() => navigate("/sign-up")}>
               Join now
             </Button>
           </Group>
