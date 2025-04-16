@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BaseQueryType } from "base/types";
 import { BASE_URL } from "app/configs/apiConfig";
-import { User, UserSignupBody } from "../../types";
+import { User, UserLoginBody, UserSignupBody } from "../../types";
 
 export const authApi = createApi({
   reducerPath: "authApi",
@@ -10,11 +10,11 @@ export const authApi = createApi({
     credentials: "include",
   }) as BaseQueryType,
   tagTypes: ["User"],
-  endpoints: ({ query, mutation }) => ({
-    profile: query<User, void>({
-      query: () => "profile",
-      providesTags: ["User"],
-    }),
+  endpoints: ({ mutation }) => ({
+    // profile: query<User, void>({
+    //   query: () => "profile",
+    //   providesTags: ["User"],
+    // }),
     signup: mutation<User, UserSignupBody>({
       query: (body: UserSignupBody) => ({
         url: "/register",
@@ -24,35 +24,22 @@ export const authApi = createApi({
       invalidatesTags: ["User"],
     }),
 
-    // initSignupVerification: mutation<User, InitSignupVerificationBody>({
-    //   query: (body) => ({
-    //     url: "/init-signup-verification",
-    //     method: "POST",
-    //     body,
-    //   }),
-    // }),
-    // signupVerification: mutation<User, SignupVerificationBody>({
-    //   query: (body) => ({
-    //     url: "/verify-signup",
-    //     method: "POST",
-    //     body,
-    //   }),
-    // }),
-    // signin: mutation<User, UserLoginBody>({
-    //   query: (body) => ({
-    //     url: "/sign-in",
-    //     method: "POST",
-    //     body,
-    //   }),
-    //   invalidatesTags: ["User"],
-    // }),
-    // signout: mutation<void, void>({
-    //   query: () => ({
-    //     url: "/sign-out",
-    //     method: "PUT",
-    //   }),
-    //   invalidatesTags: ["User"],
-    // }),
+    signin: mutation<User, UserLoginBody>({
+      query: (body) => ({
+        url: "/login",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["User"],
+    }),
+
+    signout: mutation<void, void>({
+      query: () => ({
+        url: "/sign-out",
+        method: "PUT",
+      }),
+      invalidatesTags: ["User"],
+    }),
     // updateProfile: mutation<User, Partial<User>>({
     //   query: (body) => ({
     //     url: "profile",
@@ -100,12 +87,12 @@ export const authApi = createApi({
 });
 
 export const {
-  useProfileQuery,
+  // useProfileQuery,
   useSignupMutation,
   // useInitSignupVerificationMutation,
   // useSignupVerificationMutation,
-  // useSigninMutation,
-  // useSignoutMutation,
+  useSigninMutation,
+  useSignoutMutation,
   // useUpdateProfileMutation,
   // useChangePasswordMutation,
   // useForgotPasswordMutation,

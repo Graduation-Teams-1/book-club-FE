@@ -1,20 +1,9 @@
-import {
-  PropsWithChildren,
-  createContext,
-  //   useCallback,
-  useEffect,
-  useMemo,
-} from "react";
-import { SplashScreen } from "base/core";
-import {
-  //   authApi,
-  useProfileQuery,
-  //   useSignoutMutation,
-} from "../store/api/auth/authApi";
+import { PropsWithChildren, createContext, useCallback, useMemo } from "react";
+import { authApi, useSignoutMutation } from "../store/api/auth/authApi";
 import { useAppDispatch } from "../store";
 import { setRoles } from "../store/app/navigationSlice";
 import { User } from "../store/types";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext<{
   isAuthenticated: boolean;
@@ -31,48 +20,46 @@ const AuthContext = createContext<{
 });
 
 function AuthProvider({ children }: PropsWithChildren) {
-  const { data: user, isLoading, isSuccess: isUserSuccess } = useProfileQuery();
-  //   const [logOut, { isLoading: isLoadingSignout, isSuccess: isSignoutSuccess }] =
-  //     useSignoutMutation();
+  // const { data: user, isLoading, isSuccess: isUserSuccess } = useProfileQuery();
+  const [logOut, { isLoading: isLoadingSignout, isSuccess: isSignoutSuccess }] =
+    useSignoutMutation();
 
   const dispatch = useAppDispatch();
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (isUserSuccess && user) {
-      dispatch(setRoles(user.permissions));
-    }
-  }, [isUserSuccess, user, dispatch]);
+  // useEffect(() => {
+  //   if (isUserSuccess && user) {
+  //     dispatch(setRoles(user.permissions));
+  //   }
+  // }, [isUserSuccess, user, dispatch]);
 
-  //   const signout = useCallback(() => {
-  //     logOut()
-  //       .unwrap()
-  //       .then(() => {
-  //         dispatch(authApi.util.resetApiState());
-  //         dispatch(setRoles([]));
-  //         navigate("/sign-in");
-  //       })
-  //       .catch(() => {
-  //         dispatch(authApi.util.resetApiState());
-  //         dispatch(setRoles([]));
-  //         navigate("/sign-in");
-  //       });
-  //   }, [dispatch, navigate]);
+  const signout = useCallback(() => {
+    logOut()
+      .unwrap()
+      .then(() => {
+        dispatch(authApi.util.resetApiState());
+        dispatch(setRoles([]));
+        navigate("/sign-in");
+      })
+      .catch(() => {
+        dispatch(authApi.util.resetApiState());
+        dispatch(setRoles([]));
+        navigate("/sign-in");
+      });
+  }, [dispatch, navigate, logOut]);
 
   const contextValue = useMemo(
     () => ({
-      isAuthenticated: Boolean(user),
-      user,
-      //   signout,
-      //   isLoadingSignout,
-      //   isSignoutSuccess,
+      isAuthenticated: false,
+      user: {},
+      signout,
+      isLoadingSignout,
+      isSignoutSuccess,
     }),
-    [user],
+    [signout, isLoadingSignout, isSignoutSuccess],
   );
 
-  return isLoading ? (
-    <SplashScreen />
-  ) : (
+  return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
 }

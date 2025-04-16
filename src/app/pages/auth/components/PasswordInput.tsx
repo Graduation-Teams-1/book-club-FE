@@ -81,7 +81,7 @@ const PasswordInput = ({
       transitionProps={{ transition: "pop" }}
     >
       <Popover.Target>
-        <div
+        <span
           onFocusCapture={() => setPopoverOpened(true)}
           onBlurCapture={() => setPopoverOpened(false)}
           className="w-full"
@@ -97,7 +97,7 @@ const PasswordInput = ({
             classNames={classNames}
             className={className}
           />
-        </div>
+        </span>
       </Popover.Target>
       <Popover.Dropdown>
         <Progress color={color} value={strength} size={5} mb="xs" />

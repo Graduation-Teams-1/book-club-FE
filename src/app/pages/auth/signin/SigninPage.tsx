@@ -22,7 +22,7 @@ export default function LoginPage() {
         />
       </div>
       <SigninForm isSigninOrUp="in" />
-      <div className="flex h-[100vh] cursor-pointer flex-col items-start pt-28">
+      <div className="flex cursor-pointer flex-col items-start pt-28 xl:h-[100vh]">
         <Image src={logo} onClick={() => navigate("/")} />
       </div>
     </div>

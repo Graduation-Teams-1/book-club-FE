@@ -17,17 +17,12 @@ export type User = {
 };
 
 export type UserSignupBody = {
-  firstname: string;
-  lastname: string;
   email: string;
+  fullName: string;
   password: string;
-  phone: string;
-  country: string;
-  dob: string;
-  confirmPassword: string;
-  acceptTerms: boolean;
-  emailCode?: string;
-  phoneCode?: string;
+  // gender: "Male" | "Female" | "Other";
+  // birthDate: string; // ISO 8601 format (e.g., "2025-04-15")
+  // location: string;
 };
 
 export type InitSignupVerificationBody = {
