@@ -5,11 +5,11 @@ import person from "~/assets/imgs/pana.png";
 import header from "~/assets/imgs/Header.png";
 import { Button, Image } from "@mantine/core";
 import { Link } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const MainSection = () => {
   const APKUrl = "https://play.google.com/store/games?device=windows";
   const IOSUrl = "https://www.apple.com/eg-ar/app-store/";
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <>
       <div className="flex h-[60rem] items-start justify-center gap-40 bg-home bg-contain bg-right-top bg-no-repeat pt-40">
@@ -24,7 +24,7 @@ const MainSection = () => {
             color="#76552B"
             size="xl"
             className="!flex !items-center !justify-center !px-9"
-            // onClick={() => navigate("/sign-up")}
+            onClick={() => navigate("/sign-up")}
           >
             Get Started
           </Button>

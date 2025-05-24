@@ -30,7 +30,7 @@ const clubsData = [
 const Clubs = () => {
   return (
     <>
-      <h1 className="font-serif m-auto w-[800px] py-8 text-center text-[4rem] font-extrabold text-[#76552B]">
+      <h1 className="m-auto w-[800px] py-8 text-center font-serif text-[4rem] font-extrabold text-[#76552B]">
         Explore Our Awesome Services
       </h1>
       <div className="container mx-auto">

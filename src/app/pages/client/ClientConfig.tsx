@@ -1,7 +1,4 @@
-// import { lazy } from "react";
 import { PageConfig } from "base/types";
-
-// const test = lazy(() => import("./"));
 
 const ClientConfig: PageConfig = {
   settings: {

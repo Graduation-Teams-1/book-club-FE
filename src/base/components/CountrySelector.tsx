@@ -1,13 +1,16 @@
 import { Select } from "@mantine/core";
 import { Controller, useFormContext } from "react-hook-form";
-import { UserSignupBody } from "~/app/store/types";
 import { countriesNames } from "../hooks/useCountries";
+
+interface CountryFormData {
+  country: string;
+}
 
 export default function CountrySelector() {
   const {
     control,
     formState: { errors },
-  } = useFormContext<UserSignupBody>();
+  } = useFormContext<CountryFormData>();
   return (
     <Controller
       name="country"

@@ -1,6 +1,6 @@
 import { AppShell, Burger, Button, Group, Image } from "@mantine/core";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import logo from "~/assets/imgs/logo.png";
 
 const Toolbar = ({
@@ -11,6 +11,7 @@ const Toolbar = ({
   toggle: () => void;
 }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const tabs = ["Clubs", "Borrow & Lend", "More"];
   useEffect(() => {
@@ -29,7 +30,7 @@ const Toolbar = ({
 
   return (
     <AppShell.Header
-      withBorder={true}
+      withBorder={location.pathname === "/" ? false : true}
       px={40}
       pt={5}
       className={
@@ -51,9 +52,9 @@ const Toolbar = ({
             {tabs.map((tab) => (
               <ul
                 key={tab}
-                className="cursor-pointer text-lg font-semibold text-[#402905]"
+                className="cursor-pointer text-lg font-bold text-[#402905] transition-all duration-300 hover:text-[#76552B]"
               >
-                {tab}
+                <NavLink to={`/${tab.toLowerCase()}`}>{tab}</NavLink>
               </ul>
             ))}
           </Group>

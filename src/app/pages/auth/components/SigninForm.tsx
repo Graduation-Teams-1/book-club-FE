@@ -6,7 +6,7 @@ import {
   Anchor,
   PasswordInput,
 } from "@mantine/core";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { GoogleButton } from "./GoogleButton";
 import { FacebookButton } from "./FacebookButton";
 import { useForm } from "react-hook-form";
@@ -32,8 +32,8 @@ const AuthForm = ({ isSigninOrUp }: AuthFormProps) => {
   });
 
   useEffect(() => {
-    if (isSuccess) redirect("/clubs");
-  }, [isSuccess]);
+    if (isSuccess) navigate("/clubs");
+  }, [isSuccess, navigate]);
 
   return (
     <form

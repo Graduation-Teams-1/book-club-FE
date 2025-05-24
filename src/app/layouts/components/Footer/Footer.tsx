@@ -29,31 +29,37 @@ const socialLinks = [
     h5: "Follow Us",
     icons: [
       <IconBrandX
+        key="x"
         size="32"
         color="#E1E1E1"
         className="hover: !transition hover:!scale-110"
       />,
       <IconBrandInstagram
+        key="icon-instagram"
         size="32"
         color="#E1E1E1"
         className="hover: !transition hover:!scale-110"
       />,
       <IconBrandFacebook
+        key="icon-facebook"
         size="32"
         color="#E1E1E1"
         className="hover: !transition hover:!scale-110"
       />,
       <IconBrandLinkedin
+        key="icon-linkedin"
         size="32"
         color="#E1E1E1"
         className="hover: !transition hover:!scale-110"
       />,
       <IconBrandYoutube
+        key="icon-youtube"
         size="32"
         color="#E1E1E1"
         className="hover: !transition hover:!scale-110"
       />,
       <IconBrandTiktok
+        key="icon-tiktok"
         size="32"
         color="#E1E1E1"
         className="hover: !transition hover:!scale-110"

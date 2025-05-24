@@ -10,7 +10,7 @@ const ForgotPasswordPage = lazy(
 const ResetPasswordPage = lazy(
   () => import("./reset-password/ResetPasswordPage"),
 );
-const CheckEmailPage = lazy(() => import("./check-email/CheckEmailPage"));
+// const CheckEmailPage = lazy(() => import("./check-email/CheckEmailPage"));
 
 const AuthConfig: PageConfig = {
   settings: {
@@ -50,11 +50,11 @@ const AuthConfig: PageConfig = {
       element: <ResetPasswordPage />,
       auth: [],
     },
-    {
-      path: "/check-email",
-      element: <CheckEmailPage />,
-      auth: [],
-    },
+    // {
+    //   path: "/check-email",
+    //   element: <CheckEmailPage />,
+    //   auth: [],
+    // },
     {
       path: "/tell-us",
       element: <TellUs />,
