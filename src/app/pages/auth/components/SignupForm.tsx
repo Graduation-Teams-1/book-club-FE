@@ -1,10 +1,15 @@
-import { Text, Button, Checkbox, TextInput } from "@mantine/core";
+import {
+  Text,
+  Button,
+  Checkbox,
+  TextInput,
+  PasswordInput,
+} from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { GoogleButton } from "./GoogleButton";
 import { FacebookButton } from "./FacebookButton";
-import PasswordInput from "./PasswordInput";
-import { FormProvider, useForm, UseFormReturn } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { UserSignupBody } from "~/app/store/types";
 import { useSignupMutation } from "~/app/store/api/auth/authApi";
@@ -17,26 +22,21 @@ const AuthForm = ({ isSigninOrUp }: AuthFormProps) => {
   const navigate = useNavigate();
   const [signup, { isLoading, isSuccess }] = useSignupMutation();
 
-  const methods: UseFormReturn<UserSignupBody> = useForm<UserSignupBody>({
-    mode: "all",
-    resolver: yupResolver(signupSchema),
-  });
-
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = methods;
+  } = useForm({
+    resolver: yupResolver(signupSchema),
+  });
 
   const onSubmit = async (data: UserSignupBody) => {
-    signup({
-      ...data,
-    });
+    signup(data);
   };
 
   useEffect(() => {
     if (isSuccess) {
-      navigate("/sign-in");
+      navigate("/tell-us");
     }
   }, [isSuccess, navigate]);
 
@@ -69,81 +69,84 @@ const AuthForm = ({ isSigninOrUp }: AuthFormProps) => {
           Login
         </Button>
       </div>
-      <FormProvider {...methods}>
-        <TextInput
-          label="Email Address"
-          error={errors.email?.message}
-          {...register("email")}
-          required
-          size="lg"
-          radius="xl"
-          className="w-full"
-          placeholder="Enter your email address"
-          classNames={{
-            input: "!border-[#9E896A]",
-            label: "!text-[#402905]",
-            required: "!text-red",
-          }}
-        />
 
-        <TextInput
-          label="User Name"
-          size="lg"
-          required
-          radius="xl"
-          className="w-full"
-          placeholder="Enter your name"
-          {...register("fullName")}
-          error={errors.fullName?.message}
-          classNames={{
-            input: "!border-[#9E896A] ",
-            label: "!text-[#402905]",
-            required: "!text-red",
-          }}
-        />
+      <TextInput
+        label="Email Address"
+        error={errors.email?.message}
+        {...register("email")}
+        required
+        size="lg"
+        radius="xl"
+        className="w-full"
+        placeholder="Enter your email address"
+        classNames={{
+          input: "!border-[#9E896A]",
+          label: "!text-[#402905]",
+          required: "!text-red",
+        }}
+      />
 
-        <PasswordInput
-          radius="xl"
-          size="lg"
-          required
-          {...register("password")}
-          classNames={{
-            input: "!border-[#9E896A] ",
-            label: "!text-[#402905]",
-            required: "!text-red",
-          }}
-        />
+      <TextInput
+        label="User Name"
+        size="lg"
+        required
+        radius="xl"
+        className="w-full"
+        placeholder="Enter your name"
+        {...register("fullName")}
+        error={errors.fullName?.message}
+        classNames={{
+          input: "!border-[#9E896A] ",
+          label: "!text-[#402905]",
+          required: "!text-red",
+        }}
+      />
 
-        <div className="flex items-center justify-center gap-4">
-          <div className="w-[100px] flex-1 border-t border-[#1C345442] md:w-[150px] xl:w-[200px]"></div>
-          <span className="text-[15px] font-normal text-primary-900">OR</span>
-          <div className="w-[100px] flex-1 border-t border-[#1C345442] md:w-[150px] xl:w-[200px]"></div>
-        </div>
+      <PasswordInput
+        radius={"xl"}
+        label="Password"
+        placeholder="Enter your password"
+        size="lg"
+        className="w-full"
+        {...register("password")}
+        error={errors.password?.message}
+        classNames={{
+          input: "!border-[#9E896A] ",
+          label: "!text-[#402905]",
+          required: "!text-red",
+        }}
+      />
 
-        <GoogleButton w={235} h={50}>
-          Sign up with Google
-        </GoogleButton>
+      <div className="flex items-center justify-center gap-4">
+        <div className="w-[100px] flex-1 border-t border-[#1C345442] md:w-[150px] xl:w-[200px]"></div>
+        <span className="text-[15px] font-normal text-primary-900">OR</span>
+        <div className="w-[100px] flex-1 border-t border-[#1C345442] md:w-[150px] xl:w-[200px]"></div>
+      </div>
 
-        <FacebookButton w={235} h={50}>
-          Sign up with Facebook
-        </FacebookButton>
+      <GoogleButton w={235} h={50}>
+        Sign up with Google
+      </GoogleButton>
 
-        <Checkbox
-          label="By signing up , you accept our terms of use and acknowledge our privacy policy"
-          color="#402905"
-          classNames={{
-            label: "!text-[#4A4A4A] text-[15px] font-normal text-center",
-          }}
-          className="!py-2"
-        />
-      </FormProvider>
+      <FacebookButton w={235} h={50}>
+        Sign up with Facebook
+      </FacebookButton>
+
+      <Checkbox
+        label="By signing up , you accept our terms of use and acknowledge our privacy policy"
+        color="#402905"
+        {...register("termsAccepted")}
+        classNames={{
+          label: "!text-[#4A4A4A] text-[15px] font-normal text-center",
+        }}
+        className="!py-2"
+      />
 
       <Button
         size="lg"
         className="!rounded-full"
         color="#402905"
         fullWidth
-        onClick={() => navigate("/tell-us")}
+        // onClick={() => navigate("/tell-us")}
         disabled={isLoading}
         loading={isLoading}
         aria-label="Submit"

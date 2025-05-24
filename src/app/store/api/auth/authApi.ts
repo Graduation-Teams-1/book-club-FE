@@ -6,15 +6,11 @@ import { User, UserLoginBody, UserSignupBody } from "../../types";
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: BASE_URL + "Account",
+    baseUrl: `${BASE_URL}Account`,
     credentials: "include",
   }) as BaseQueryType,
   tagTypes: ["User"],
   endpoints: ({ mutation }) => ({
-    // profile: query<User, void>({
-    //   query: () => "profile",
-    //   providesTags: ["User"],
-    // }),
     signup: mutation<User, UserSignupBody>({
       query: (body: UserSignupBody) => ({
         url: "/register",
@@ -40,63 +36,8 @@ export const authApi = createApi({
       }),
       invalidatesTags: ["User"],
     }),
-    // updateProfile: mutation<User, Partial<User>>({
-    //   query: (body) => ({
-    //     url: "profile",
-    //     method: "PATCH",
-    //     body,
-    //   }),
-    //   invalidatesTags: ["User"],
-    // }),
-    // changePassword: mutation<void, ChangePasswordBody>({
-    //   query: (body) => ({
-    //     url: "/change-password",
-    //     method: "POST",
-    //     body,
-    //   }),
-    // }),
-    // forgotPassword: mutation<void, ForgotPasswordBody>({
-    //   query: (body) => ({
-    //     url: "/forgot-password",
-    //     method: "POST",
-    //     body,
-    //   }),
-    // }),
-    // resetPassword: mutation<void, ResetPasswordBody>({
-    //   query: (body) => ({
-    //     url: "/reset-password",
-    //     method: "POST",
-    //     body,
-    //   }),
-    // }),
-    // set2FA: mutation<void, Set2FABody>({
-    //   query: (body) => ({
-    //     url: "/set-2fa",
-    //     method: "PATCH",
-    //     body,
-    //   }),
-    // }),
-    // verify2FA: mutation<void, Verify2FABody>({
-    //   query: (body) => ({
-    //     url: "/verify-2fa",
-    //     method: "PATCH",
-    //     body,
-    //   }),
-    // }),
   }),
 });
 
-export const {
-  // useProfileQuery,
-  useSignupMutation,
-  // useInitSignupVerificationMutation,
-  // useSignupVerificationMutation,
-  useSigninMutation,
-  useSignoutMutation,
-  // useUpdateProfileMutation,
-  // useChangePasswordMutation,
-  // useForgotPasswordMutation,
-  // useResetPasswordMutation,
-  // useSet2FAMutation,
-  // useVerify2FAMutation,
-} = authApi;
+export const { useSignupMutation, useSigninMutation, useSignoutMutation } =
+  authApi;

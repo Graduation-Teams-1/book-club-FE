@@ -1,5 +1,4 @@
 import * as Yup from "yup";
-// import { differenceInYears } from "date-fns";
 
 export const signupSchema = Yup.object({
   fullName: Yup.string()
@@ -33,20 +32,10 @@ export const signupSchema = Yup.object({
       "Password must contain at least one special character",
     )
     .required("Password is required"),
-  // birthDate: Yup.string()
-  //   .required("Date of birth is required")
-  //   .test("age", "You must be at least 18 years old", (value) => {
-  //     if (!value) return false;
-  //     return differenceInYears(new Date(), new Date(value)) >= 18;
-  //   }),
-  // location: Yup.string().required(),
-  // gender: Yup.mixed<"Male" | "Female" | "Other">()
-  //   .oneOf(["Male", "Female", "Other"], "Invalid gender")
-  //   .required("Gender is required"),
 
-  // acceptTerms: Yup.boolean()
-  //   .required("You must accept the terms and conditions")
-  //   .oneOf([true], "You must accept the terms and conditions"),
+  termsAccepted: Yup.boolean()
+    .oneOf([true], "You must accept the terms and conditions")
+    .required("You must accept the terms and conditions"),
 });
 
 export const signinSchema = Yup.object().shape({
