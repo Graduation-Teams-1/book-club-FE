@@ -1,19 +1,14 @@
-import { AppShell, Burger, Button, Group, Image } from "@mantine/core";
+import { AppShell, Button, Group, Image } from "@mantine/core";
 import { useEffect, useState } from "react";
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import logo from "~/assets/imgs/logo.png";
+import logoMobile from "~/assets/imgs/circleLogo.png";
 
-const Toolbar = ({
-  opened,
-  toggle,
-}: {
-  opened: boolean;
-  toggle: () => void;
-}) => {
+const Toolbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
-  const tabs = ["Clubs", "Borrow & Lend", "More"];
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -30,7 +25,7 @@ const Toolbar = ({
 
   return (
     <AppShell.Header
-      withBorder={location.pathname === "/" ? false : true}
+      withBorder={location.pathname !== "/"}
       px={40}
       pt={5}
       className={
@@ -44,20 +39,15 @@ const Toolbar = ({
           <Image
             src={logo}
             alt="logo"
-            className="!h-[50px] !w-[300px] cursor-pointer"
+            className="!hidden !h-[50px] !w-[300px] cursor-pointer md:!block"
             onClick={() => navigate("/")}
           />
-
-          <Group ml="xl" gap={20} visibleFrom="sm" className="">
-            {tabs.map((tab) => (
-              <ul
-                key={tab}
-                className="cursor-pointer text-lg font-bold text-[#402905] transition-all duration-300 hover:text-[#76552B]"
-              >
-                <NavLink to={`/${tab.toLowerCase()}`}>{tab}</NavLink>
-              </ul>
-            ))}
-          </Group>
+          <Image
+            src={logoMobile}
+            alt="logo"
+            className="!block !h-[50px] !w-[300px] cursor-pointer md:!hidden"
+            onClick={() => navigate("/")}
+          />
 
           <Group gap="md">
             <Button
@@ -72,7 +62,6 @@ const Toolbar = ({
             </Button>
           </Group>
         </Group>
-        <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
       </Group>
     </AppShell.Header>
   );

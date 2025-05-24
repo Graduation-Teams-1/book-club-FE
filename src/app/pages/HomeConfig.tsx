@@ -1,7 +1,6 @@
 import { lazy } from "react";
 import { PageConfig } from "base/types";
 
-// const LandingPage = lazy(() => import("./LandingPage"));
 const HomePage = lazy(() => import("./client/home/HomePage"));
 
 const HomeConfig: PageConfig = {

@@ -1,5 +1,3 @@
-// import HomePageLayout from "../components/HomePageLayout";
-
 import Clubs from "../components/Clubs";
 import Feedbacks from "../components/Feedbacks";
 import MainSection from "../components/MainSection";

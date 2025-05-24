@@ -34,10 +34,10 @@ const Clubs = () => {
         Explore Our Awesome Services
       </h1>
       <div className="container mx-auto">
-        {clubsData.map((club, index) => (
+        {clubsData.map((club) => (
           <div
-            className="flex items-center justify-center gap-10 py-20"
-            key={index}
+            className="flex flex-col-reverse items-center justify-center gap-10 py-20 md:flex-row"
+            key={club.h1}
           >
             <div className="flex flex-col gap-12">
               <h1 className="text-5xl font-extrabold text-[#76552B]">
@@ -46,15 +46,6 @@ const Clubs = () => {
               <p className="w-[70%] text-4xl font-[480] leading-snug text-[#402905]">
                 {club.p}
               </p>
-              {/* <Button
-                w={260}
-                radius="xl"
-                color="#76552B"
-                size="xl"
-                className="!flex !items-center !justify-center"
-              >
-                Try it now
-              </Button> */}
             </div>
             <Image src={club.src} alt={club.h1} className="!w-[600px]" />
           </div>
