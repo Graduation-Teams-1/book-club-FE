@@ -1,15 +1,14 @@
 import { lazy } from "react";
 import { PageConfig } from "base/types";
-import TellUs from "./components/TellUs";
 
 const SignupPage = lazy(() => import("./signup/SignupPage"));
 const SigninPage = lazy(() => import("./signin/SigninPage"));
-const ForgotPasswordPage = lazy(
-  () => import("./forgot-password/ForgotPasswordPage"),
-);
-const ResetPasswordPage = lazy(
-  () => import("./reset-password/ResetPasswordPage"),
-);
+// const ForgotPasswordPage = lazy(
+//   () => import("./forgot-password/ForgotPasswordPage"),
+// );
+// const ResetPasswordPage = lazy(
+//   () => import("./reset-password/ResetPasswordPage"),
+// );
 // const CheckEmailPage = lazy(() => import("./check-email/CheckEmailPage"));
 
 const AuthConfig: PageConfig = {
@@ -40,26 +39,21 @@ const AuthConfig: PageConfig = {
       element: <SignupPage />,
       auth: [],
     },
-    {
-      path: "/forgot-password",
-      element: <ForgotPasswordPage />,
-      auth: [],
-    },
-    {
-      path: "/reset-password",
-      element: <ResetPasswordPage />,
-      auth: [],
-    },
+    // {
+    //   path: "/forgot-password",
+    //   element: <ForgotPasswordPage />,
+    //   auth: [],
+    // },
+    // {
+    //   path: "/reset-password",
+    //   element: <ResetPasswordPage />,
+    //   auth: [],
+    // },
     // {
     //   path: "/check-email",
     //   element: <CheckEmailPage />,
     //   auth: [],
     // },
-    {
-      path: "/tell-us",
-      element: <TellUs />,
-      auth: [],
-    },
   ],
 };
 
