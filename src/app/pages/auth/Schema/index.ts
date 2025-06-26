@@ -33,6 +33,24 @@ export const signupSchema = Yup.object({
     )
     .required("Password is required"),
 
+  gender: Yup.string()
+    .oneOf(["Male", "Female"], "Gender is required")
+    .required("Gender is required"),
+
+  birthDate: Yup.date()
+    .max(new Date(), "Birth date cannot be in the future")
+    .required("Birth date is required"),
+
+  location: Yup.string()
+    .min(2, "Location must be at least 2 characters")
+    .max(100, "Location must be at most 100 characters")
+    .required("Location is required"),
+
+  favouriteGenresId: Yup.array()
+    .of(Yup.number().integer().positive())
+    .min(1, "Select at least one genre")
+    .required("Select at least one genre"),
+
   termsAccepted: Yup.boolean()
     .oneOf([true], "You must accept the terms and conditions")
     .required("You must accept the terms and conditions"),

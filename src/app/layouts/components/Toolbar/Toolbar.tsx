@@ -3,11 +3,14 @@ import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import logo from "~/assets/imgs/logo.png";
 import logoMobile from "~/assets/imgs/circleLogo.png";
+import { useAuth } from "base/hooks";
+import { Button as MantineButton } from "@mantine/core";
 
 const Toolbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
+  const { isAuthenticated, user, signout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,16 +53,31 @@ const Toolbar = () => {
           />
 
           <Group gap="md">
-            <Button
-              variant="outline"
-              c="#402905"
-              onClick={() => navigate("/sign-in")}
-            >
-              Sign in
-            </Button>
-            <Button color="#76552B" onClick={() => navigate("/sign-up")}>
-              Join now
-            </Button>
+            {isAuthenticated ? (
+              <>
+                <Button variant="outline" c="#402905" disabled>
+                  {user?.firstname || user?.lastname
+                    ? `${user?.firstname ?? ""} ${user?.lastname ?? ""}`.trim()
+                    : (user?.email ?? "User")}
+                </Button>
+                <MantineButton color="#76552B" onClick={signout}>
+                  Logout
+                </MantineButton>
+              </>
+            ) : (
+              <>
+                <Button
+                  variant="outline"
+                  c="#402905"
+                  onClick={() => navigate("/sign-in")}
+                >
+                  Sign in
+                </Button>
+                <Button color="#76552B" onClick={() => navigate("/sign-up")}>
+                  Join now
+                </Button>
+              </>
+            )}
           </Group>
         </Group>
       </Group>

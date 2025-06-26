@@ -16,6 +16,7 @@ export const authApi = createApi({
         url: "/register",
         method: "POST",
         body,
+        responseHandler: "text",
       }),
       invalidatesTags: ["User"],
     }),
@@ -33,6 +34,7 @@ export const authApi = createApi({
       query: () => ({
         url: "/sign-out",
         method: "PUT",
+        // responseHandler: "text",
       }),
       invalidatesTags: ["User"],
     }),

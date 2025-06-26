@@ -8,6 +8,8 @@ import { useSigninMutation } from "~/app/store/api/auth/authApi";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signinSchema } from "../Schema";
 import AuthTextInput from "./AuthTextInput";
+import { useAuth } from "base/hooks";
+import { UserLoginBody } from "~/app/store/types";
 
 interface AuthFormProps {
   isSigninOrUp: "in" | "up";
@@ -15,7 +17,8 @@ interface AuthFormProps {
 
 const AuthForm = ({ isSigninOrUp }: AuthFormProps) => {
   const navigate = useNavigate();
-  const [signin, { isLoading, isSuccess }] = useSigninMutation();
+  const [signin, { isLoading }] = useSigninMutation();
+  const { setToken, setUser } = useAuth();
 
   const methods = useForm({
     resolver: yupResolver(signinSchema),
@@ -26,15 +29,53 @@ const AuthForm = ({ isSigninOrUp }: AuthFormProps) => {
     formState: { errors },
   } = methods;
 
+  const onSubmit = async (data: UserLoginBody) => {
+    const loginRes = await signin(data).unwrap();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (loginRes && (loginRes as any).token) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      if (setToken) setToken((loginRes as any).token);
+      // Simulate user profile extraction (replace with real API call if available)
+      const user = {
+        _id: "",
+        firstname: (data as UserLoginBody).email.split("@")[0],
+        lastname: "",
+        email: (data as UserLoginBody).email,
+        avatar: "",
+        role: "User",
+        twoFactorAuth: false,
+        ipAddress: "",
+        lastLogin: "",
+        is2FAVerified: false,
+        resetCount: 0,
+        permissions: [],
+        removed: false,
+        createdAt: "",
+        updatedAt: "",
+      };
+      if (setUser) setUser(user);
+      localStorage.setItem("user", JSON.stringify(user));
+      navigate("/");
+    }
+  };
+
   useEffect(() => {
-    if (isSuccess) navigate("/");
-  }, [isSuccess, navigate]);
+    // Restore user from localStorage on mount
+    const userStr = localStorage.getItem("user");
+    if (userStr && setUser) {
+      try {
+        setUser(JSON.parse(userStr));
+      } catch {
+        // ignore JSON parse error
+      }
+    }
+  }, [setUser]);
 
   return (
     <FormProvider {...methods}>
       <form
         className="max-w-1/2 flex h-screen flex-col items-center justify-center gap-5 px-4 py-4 xl:px-24"
-        onSubmit={handleSubmit(signin)}
+        onSubmit={handleSubmit(onSubmit)}
       >
         <Text className="text-center">Welcome to Circels!</Text>
 
