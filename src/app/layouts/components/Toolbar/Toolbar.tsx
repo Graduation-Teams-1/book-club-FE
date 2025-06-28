@@ -3,8 +3,10 @@ import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import logo from "~/assets/imgs/logo.png";
 import logoMobile from "~/assets/imgs/circleLogo.png";
+
+// import EditIcon from "~/assets/icons/Edit.svg";
 import { useAuth } from "base/hooks";
-import { Button as MantineButton } from "@mantine/core";
+// import { IconUser } from "@tabler/icons-react";
 
 const Toolbar = () => {
   const navigate = useNavigate();
@@ -29,7 +31,7 @@ const Toolbar = () => {
   return (
     <AppShell.Header
       withBorder={location.pathname !== "/"}
-      px={40}
+      px={20}
       pt={5}
       className={
         isScrolled
@@ -60,9 +62,9 @@ const Toolbar = () => {
                     ? `${user?.firstname ?? ""} ${user?.lastname ?? ""}`.trim()
                     : (user?.email ?? "User")}
                 </Button>
-                <MantineButton color="#76552B" onClick={signout}>
+                <Button color="#76552B" onClick={signout}>
                   Logout
-                </MantineButton>
+                </Button>
               </>
             ) : (
               <>
@@ -70,11 +72,28 @@ const Toolbar = () => {
                   variant="outline"
                   c="#402905"
                   onClick={() => navigate("/sign-in")}
+                  // leftSection={
+                  //   <IconUser
+                  //     stroke={2}
+                  //     className="flex items-center md:!hidden"
+                  //   />
+                  // }
                 >
-                  Sign in
+                  <span className="!hidden md:!inline">Sign in</span>
                 </Button>
-                <Button color="#76552B" onClick={() => navigate("/sign-up")}>
-                  Join now
+                <Button
+                  color="#76552B"
+                  onClick={() => navigate("/sign-up")}
+                  // leftSection={
+                  //   <Image
+                  //     src={EditIcon}
+                  //     width={16}
+                  //     height={16}
+                  //     className="md:!hidden"
+                  //   />
+                  // }
+                >
+                  <span className="!hidden md:!inline">Join now</span>
                 </Button>
               </>
             )}
