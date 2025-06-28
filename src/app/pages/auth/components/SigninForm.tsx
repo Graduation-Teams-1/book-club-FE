@@ -11,7 +11,7 @@ import AuthTextInput from "./AuthTextInput";
 import { useAuth } from "base/hooks";
 import { UserLoginBody } from "~/app/store/types";
 
-interface AuthFormProps {
+export interface AuthFormProps {
   isSigninOrUp: "in" | "up";
 }
 
@@ -77,7 +77,9 @@ const AuthForm = ({ isSigninOrUp }: AuthFormProps) => {
         className="max-w-1/2 flex h-screen flex-col items-center justify-center gap-5 px-4 py-4 xl:px-24"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <Text className="text-center">Welcome to Circels!</Text>
+        <Text className="text-center !text-xl !font-semibold !text-[#402905]">
+          Welcome to Circels!
+        </Text>
 
         <div className="flex w-[250px] justify-between rounded-full bg-[#EAD0A880] px-[8px] py-[5px]">
           <Button

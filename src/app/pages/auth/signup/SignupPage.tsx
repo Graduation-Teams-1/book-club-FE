@@ -19,7 +19,7 @@ export default function SignupPage() {
           fit="contain"
         />
       </div>
-      <SignupForm />
+      <SignupForm isSigninOrUp="up" />
       <div className="flex cursor-pointer flex-col items-start pt-28 xl:h-[100vh]">
         <Image src={logo} onClick={() => navigate("/")} />
       </div>

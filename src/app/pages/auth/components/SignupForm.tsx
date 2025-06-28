@@ -5,8 +5,6 @@ import {
   TextInput,
   PasswordInput,
   Radio,
-  Group,
-  Progress,
 } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -17,19 +15,16 @@ import { useEffect, useState } from "react";
 import { useSignupMutation } from "~/app/store/api/auth/authApi";
 import { signupSchema } from "../Schema";
 import DatePicker from "~/base/components/DatePickerInput";
-
-const GENRES = [
-  { id: 1, label: "Fiction" },
-  { id: 2, label: "Non-Fiction" },
-  { id: 3, label: "Mystery" },
-  { id: 4, label: "Fantasy" },
-];
+import { useGetGenresQuery } from "~/app/store/api/generes/genres";
+import { AuthFormProps } from "./SigninForm";
 
 const steps = ["Account Info", "Tell Us"];
 
-const SignupWizard = () => {
+const SignupWizard = ({ isSigninOrUp }: AuthFormProps) => {
   const navigate = useNavigate();
   const [signup, { isLoading, isSuccess }] = useSignupMutation();
+  const { data: genres } = useGetGenresQuery("");
+  // console.log(genres);
   const [step, setStep] = useState(0);
 
   const methods = useForm({
@@ -84,21 +79,32 @@ const SignupWizard = () => {
   return (
     <FormProvider {...methods}>
       <form
-        className="max-w-1/2 flex h-screen flex-col items-center justify-center gap-3 p-4 xl:px-24"
+        className="max-w-1/2 flex h-screen flex-col items-center justify-center gap-4 py-2 xl:px-24"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <Group grow gap={5} mt="xs">
-          <Progress
-            size="xs"
-            color="#402905"
-            value={((step + 1) / steps.length) * 100}
-            transitionDuration={50}
-            className="!bg-[#EAD0A8]"
-          />
-        </Group>
-        <Text className="text-center" component="h1">
-          {steps[step]}
+        <Text className="text-center !text-xl !font-semibold !text-[#402905]">
+          Welcome to Circels!
         </Text>
+        <div className="flex w-[250px] justify-between rounded-full bg-[#EAD0A880] px-[8px] py-[5px]">
+          <Button
+            variant={isSigninOrUp === "up" ? "filled" : "transparent"}
+            color="#402905"
+            w={120}
+            radius="xl"
+            onClick={() => navigate("/sign-up")}
+          >
+            Register
+          </Button>
+          <Button
+            variant={isSigninOrUp === "in" ? "filled" : "transparent"}
+            color="#402905"
+            w={120}
+            radius="xl"
+            onClick={() => navigate("/sign-in")}
+          >
+            Login
+          </Button>
+        </div>
         {step === 0 && (
           <>
             <TextInput
@@ -201,7 +207,7 @@ const SignupWizard = () => {
               size="lg"
               required
               radius="xl"
-              className="w-full"
+              className="w-2/3"
               placeholder="Enter your location"
               {...methods.register("location")}
               error={errors.location?.message}
@@ -211,32 +217,32 @@ const SignupWizard = () => {
                 required: "!text-red",
               }}
             />
-            <div className="flex flex-wrap gap-3 pt-5">
-              {GENRES.map((genre) => (
+            <div className="flex w-2/3 flex-wrap gap-3 pt-5">
+              {genres?.map((genre: { genreName: string; genreId: number }) => (
                 <Button
                   variant={
-                    watch("favouriteGenresId").includes(genre.id)
+                    watch("favouriteGenresId").includes(genre.genreId)
                       ? "filled"
                       : "outline"
                   }
-                  key={genre.id}
+                  key={genre.genreId}
                   onClick={(e) => {
                     e.preventDefault();
                     const current = watch("favouriteGenresId");
                     setValue(
                       "favouriteGenresId",
-                      current.includes(genre.id)
-                        ? current.filter((g) => g !== genre.id)
-                        : [...current, genre.id],
+                      current.includes(genre.genreId)
+                        ? current.filter((g) => g !== genre.genreId)
+                        : [...current, genre.genreId],
                     );
                   }}
                   className={`rounded-lg border px-4 py-2 ${
-                    watch("favouriteGenresId").includes(genre.id)
+                    watch("favouriteGenresId").includes(genre.genreId)
                       ? "!bg-[#402905] !text-white"
                       : "!border-[#40290580] !bg-white !text-[#402905]"
                   }`}
                 >
-                  {genre.label}
+                  {genre.genreName}
                 </Button>
               ))}
             </div>
@@ -288,7 +294,12 @@ const SignupWizard = () => {
             </Button>
           )}
         </div>
-        <div className="flex items-center justify-center gap-4 pt-4">
+        <div className="flex items-center justify-center gap-4">
+          <div className="w-[100px] flex-1 border-t border-[#1C345442] md:w-[150px] xl:w-[200px]"></div>
+          <span className="text-[15px] font-normal text-primary-900">OR</span>
+          <div className="w-[100px] flex-1 border-t border-[#1C345442] md:w-[150px] xl:w-[200px]"></div>
+        </div>
+        <div className="flex w-full flex-wrap items-center justify-center gap-6 md:flex-nowrap md:justify-between md:gap-4">
           <GoogleButton w={235} h={50}>
             Sign up with Google
           </GoogleButton>
