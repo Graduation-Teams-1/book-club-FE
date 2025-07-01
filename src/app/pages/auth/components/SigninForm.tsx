@@ -18,7 +18,8 @@ export interface AuthFormProps {
 
 const AuthForm = ({ isSigninOrUp }: AuthFormProps) => {
   const navigate = useNavigate();
-  const [signin, { isLoading, isError, error: signinError }] = useSigninMutation();
+  const [signin, { isLoading, isError, error: signinError }] =
+    useSigninMutation();
   const { setToken, setUser } = useAuth();
 
   const methods = useForm({
@@ -41,8 +42,6 @@ const AuthForm = ({ isSigninOrUp }: AuthFormProps) => {
         // Simulate user profile extraction (replace with real API call if available)
         const user = {
           _id: "",
-          firstname: (data as UserLoginBody).email.split("@")[0],
-          lastname: "",
           email: (data as UserLoginBody).email,
           avatar: "",
           role: "User",
@@ -55,6 +54,7 @@ const AuthForm = ({ isSigninOrUp }: AuthFormProps) => {
           removed: false,
           createdAt: "",
           updatedAt: "",
+          fullName: (data as UserLoginBody).email.split("@")[0], // Add fullName property
         };
 
         if (setUser) setUser(user);
@@ -63,24 +63,26 @@ const AuthForm = ({ isSigninOrUp }: AuthFormProps) => {
       }
     } catch (error) {
       console.log("Login error:", error);
-      
+
       // Clear any previous errors first
       setError("root", { type: "manual", message: "" });
-      
+
       // Note: RTK Query errors will be handled by the useEffect above
       // This catch block handles any other unexpected errors
       if (!isError) {
         let errorMessage = "An unexpected error occurred. Please try again.";
-        
-        if (error && typeof error === 'object' && 'data' in error) {
-          const apiError = error as { data?: { message?: string; error?: string } };
+
+        if (error && typeof error === "object" && "data" in error) {
+          const apiError = error as {
+            data?: { message?: string; error?: string };
+          };
           if (apiError.data?.message) {
             errorMessage = apiError.data.message;
           } else if (apiError.data?.error) {
             errorMessage = apiError.data.error;
           }
         }
-        
+
         setError("root", {
           type: "manual",
           message: errorMessage,
@@ -92,18 +94,25 @@ const AuthForm = ({ isSigninOrUp }: AuthFormProps) => {
   useEffect(() => {
     // Handle RTK Query error state
     if (isError && signinError) {
-      let errorMessage = "Login failed. Please check your credentials and try again.";
-      
+      let errorMessage =
+        "Login failed. Please check your credentials and try again.";
+
       // Extract error message from RTK Query error
-      if (signinError && typeof signinError === 'object' && 'data' in signinError) {
-        const apiError = signinError as { data?: { message?: string; error?: string } };
+      if (
+        signinError &&
+        typeof signinError === "object" &&
+        "data" in signinError
+      ) {
+        const apiError = signinError as {
+          data?: { message?: string; error?: string };
+        };
         if (apiError.data?.message) {
           errorMessage = apiError.data.message;
         } else if (apiError.data?.error) {
           errorMessage = apiError.data.error;
         }
       }
-      
+
       setError("root", {
         type: "manual",
         message: errorMessage,
