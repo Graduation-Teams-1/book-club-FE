@@ -3,10 +3,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import logo from "~/assets/imgs/logo.png";
 import logoMobile from "~/assets/imgs/circleLogo.png";
-
-// import EditIcon from "~/assets/icons/Edit.svg";
 import { useAuth } from "base/hooks";
-// import { IconUser } from "@tabler/icons-react";
+import { Button as MantineButton } from "@mantine/core";
 
 const Toolbar = () => {
   const navigate = useNavigate();
@@ -31,7 +29,7 @@ const Toolbar = () => {
   return (
     <AppShell.Header
       withBorder={location.pathname !== "/"}
-      px={20}
+      px={40}
       pt={5}
       className={
         isScrolled
@@ -62,9 +60,9 @@ const Toolbar = () => {
                     ? `${user?.firstname ?? ""} ${user?.lastname ?? ""}`.trim()
                     : (user?.email ?? "User")}
                 </Button>
-                <Button color="#76552B" onClick={signout}>
+                <MantineButton color="#76552B" onClick={signout}>
                   Logout
-                </Button>
+                </MantineButton>
               </>
             ) : (
               <>
@@ -72,28 +70,11 @@ const Toolbar = () => {
                   variant="outline"
                   c="#402905"
                   onClick={() => navigate("/sign-in")}
-                  // leftSection={
-                  //   <IconUser
-                  //     stroke={2}
-                  //     className="flex items-center md:!hidden"
-                  //   />
-                  // }
                 >
-                  <span className="!hidden md:!inline">Sign in</span>
+                  Sign in
                 </Button>
-                <Button
-                  color="#76552B"
-                  onClick={() => navigate("/sign-up")}
-                  // leftSection={
-                  //   <Image
-                  //     src={EditIcon}
-                  //     width={16}
-                  //     height={16}
-                  //     className="md:!hidden"
-                  //   />
-                  // }
-                >
-                  <span className="!hidden md:!inline">Join now</span>
+                <Button color="#76552B" onClick={() => navigate("/sign-up")}>
+                  Join now
                 </Button>
               </>
             )}
