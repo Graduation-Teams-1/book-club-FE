@@ -50,7 +50,7 @@ const Clubs = () => {
   const OPTIONS: EmblaOptionsType = { axis: "y", loop: true };
   return (
     <>
-      <h1 className="m-auto w-[800px] py-8 text-center font-serif text-[3rem] font-extrabold text-[#76552B]">
+      <h1 className="w-full px-4 py-8 text-center font-serif text-[2rem] font-extrabold text-[#76552B]">
         Explore Our Awesome Services
       </h1>
       <div className="container mx-auto">

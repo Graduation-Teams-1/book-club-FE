@@ -5,7 +5,7 @@ import logo from "~/assets/imgs/logo.png";
 import logoMobile from "~/assets/imgs/circleLogo.png";
 import { useAuth } from "base/hooks";
 import { Button as MantineButton } from "@mantine/core";
-
+import { IoIosLogOut } from "react-icons/io";
 const Toolbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -29,15 +29,14 @@ const Toolbar = () => {
   return (
     <AppShell.Header
       withBorder={location.pathname !== "/"}
-      px={40}
-      pt={5}
+      py={15}
       className={
         isScrolled
           ? "!bg-white"
           : "!bg-transparent !transition-all !ease-in-out"
       }
     >
-      <Group h="100%">
+      <Group h="100%" className="container mx-auto px-3">
         <Group justify="space-between" style={{ flex: 1 }}>
           <Image
             src={logo}
@@ -55,13 +54,12 @@ const Toolbar = () => {
           <Group gap="md">
             {isAuthenticated ? (
               <>
-                <Button variant="outline" c="#402905" disabled>
-                  {user?.firstname || user?.lastname
-                    ? `${user?.firstname ?? ""} ${user?.lastname ?? ""}`.trim()
-                    : (user?.email ?? "User")}
+                {/* modal */}
+                <Button variant="outline" c="#402905">
+                  {user?.fullName || "User"}
                 </Button>
                 <MantineButton color="#76552B" onClick={signout}>
-                  Logout
+                  <IoIosLogOut className="w-20" />
                 </MantineButton>
               </>
             ) : (
@@ -74,7 +72,7 @@ const Toolbar = () => {
                   Sign in
                 </Button>
                 <Button color="#76552B" onClick={() => navigate("/sign-up")}>
-                  Join now
+                  join now
                 </Button>
               </>
             )}

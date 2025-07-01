@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useRoutes } from "react-router-dom";
 import { selectCurrentLayoutConfig } from "~/app/store/app/settingsSlice";
 import { AppShell, Loader } from "@mantine/core";
-import Footer from "../components/Footer/Footer";
+// import Footer from "../components/Footer/Footer";
 import AppContext from "~/app/AppContext";
 import Toolbar from "../components/Toolbar/Toolbar";
 
@@ -13,7 +13,7 @@ const Layout = () => {
   const { routes } = appContext;
 
   return (
-    <AppShell header={{ height: 70 }} padding="md">
+    <AppShell padding="md">
       {config.toolbar.display && <Toolbar />}
       <AppShell.Main>
         <Suspense
@@ -26,7 +26,7 @@ const Layout = () => {
           {useRoutes(routes)}
         </Suspense>
       </AppShell.Main>
-      {config.footer.display && <Footer />}
+      {/* {config.footer.display && <Footer />} */}
     </AppShell>
   );
 };

@@ -1,9 +1,9 @@
 import { AiOutlineApple } from "react-icons/ai";
 import { IoLogoGooglePlaystore } from "react-icons/io5";
 
-import person from "~/assets/imgs/pana.png";
+import hero from "~/assets/imgs/hero.jpg";
 import header from "~/assets/imgs/Header.png";
-import { Button, Image } from "@mantine/core";
+import { BackgroundImage, Button, Image } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
 
 const MainSection = () => {
@@ -11,18 +11,25 @@ const MainSection = () => {
   const IOSUrl = "https://www.apple.com/eg-ar/app-store/";
   const navigate = useNavigate();
   return (
-    <div className="flex h-[60rem] flex-col-reverse items-center justify-center gap-10 bg-home bg-contain bg-right-top bg-no-repeat md:flex-row md:items-start md:gap-40 md:pt-40">
-      <div className="flex w-1/2 flex-col items-center justify-center gap-14">
-        <Image src={header} alt="header" w={600} />
-        <p className="w-[85%] text-center text-2xl font-semibold text-[#402905]">
+    <BackgroundImage
+      src={hero}
+      radius="sm"
+      className="relative flex h-screen items-center pt-20 md:gap-40 md:pt-10"
+    >
+      {/* Black overlay */}
+      <div className="absolute inset-0 rounded-sm bg-base bg-opacity-50"></div>
+
+      <div className="relative z-10 flex h-full w-full flex-col items-center justify-center gap-14">
+        <Image src={header} alt="header" className="!w-96 md:!w-[40%]" />
+        <p className="w-full px-4 text-center text-2xl font-semibold text-white md:w-1/2 md:text-4xl">
           Discover a community of book lovers, join book clubs and share your
           passion for reading and discussion.
         </p>
         <Button
           radius={50}
-          color="#76552B"
+          color="#fff"
           size="xl"
-          className="!flex !items-center !justify-center !px-9"
+          className="!flex !items-center !justify-center !px-9 !font-bold !text-[#76552B]"
           onClick={() => navigate("/sign-up")}
         >
           Get Started
@@ -36,8 +43,7 @@ const MainSection = () => {
           </Link>
         </div>
       </div>
-      <Image src={person} alt="person" className="!w-1/3 !object-contain" />
-    </div>
+    </BackgroundImage>
   );
 };
 

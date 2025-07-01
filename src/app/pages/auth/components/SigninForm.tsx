@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Text, Button, Checkbox, Anchor, PasswordInput } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { GoogleButton } from "./GoogleButton";
@@ -17,7 +18,7 @@ export interface AuthFormProps {
 
 const AuthForm = ({ isSigninOrUp }: AuthFormProps) => {
   const navigate = useNavigate();
-  const [signin, { isLoading }] = useSigninMutation();
+  const [signin, { isLoading, isError, error: signinError }] = useSigninMutation();
   const { setToken, setUser } = useAuth();
 
   const methods = useForm({
@@ -27,37 +28,88 @@ const AuthForm = ({ isSigninOrUp }: AuthFormProps) => {
   const {
     handleSubmit,
     formState: { errors },
+    setError,
   } = methods;
 
   const onSubmit = async (data: UserLoginBody) => {
-    const loginRes = await signin(data).unwrap();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    if (loginRes && (loginRes as any).token) {
+    try {
+      const loginRes = await signin(data).unwrap();
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      if (setToken) setToken((loginRes as any).token);
-      // Simulate user profile extraction (replace with real API call if available)
-      const user = {
-        _id: "",
-        firstname: (data as UserLoginBody).email.split("@")[0],
-        lastname: "",
-        email: (data as UserLoginBody).email,
-        avatar: "",
-        role: "User",
-        twoFactorAuth: false,
-        ipAddress: "",
-        lastLogin: "",
-        is2FAVerified: false,
-        resetCount: 0,
-        permissions: [],
-        removed: false,
-        createdAt: "",
-        updatedAt: "",
-      };
-      if (setUser) setUser(user);
-      localStorage.setItem("user", JSON.stringify(user));
-      navigate("/");
+      if (loginRes && (loginRes as any).token) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        if (setToken) setToken((loginRes as any).token);
+        // Simulate user profile extraction (replace with real API call if available)
+        const user = {
+          _id: "",
+          firstname: (data as UserLoginBody).email.split("@")[0],
+          lastname: "",
+          email: (data as UserLoginBody).email,
+          avatar: "",
+          role: "User",
+          twoFactorAuth: false,
+          ipAddress: "",
+          lastLogin: "",
+          is2FAVerified: false,
+          resetCount: 0,
+          permissions: [],
+          removed: false,
+          createdAt: "",
+          updatedAt: "",
+        };
+
+        if (setUser) setUser(user);
+        localStorage.setItem("user", JSON.stringify(user));
+        navigate("/");
+      }
+    } catch (error) {
+      console.log("Login error:", error);
+      
+      // Clear any previous errors first
+      setError("root", { type: "manual", message: "" });
+      
+      // Note: RTK Query errors will be handled by the useEffect above
+      // This catch block handles any other unexpected errors
+      if (!isError) {
+        let errorMessage = "An unexpected error occurred. Please try again.";
+        
+        if (error && typeof error === 'object' && 'data' in error) {
+          const apiError = error as { data?: { message?: string; error?: string } };
+          if (apiError.data?.message) {
+            errorMessage = apiError.data.message;
+          } else if (apiError.data?.error) {
+            errorMessage = apiError.data.error;
+          }
+        }
+        
+        setError("root", {
+          type: "manual",
+          message: errorMessage,
+        });
+      }
     }
   };
+
+  useEffect(() => {
+    // Handle RTK Query error state
+    if (isError && signinError) {
+      let errorMessage = "Login failed. Please check your credentials and try again.";
+      
+      // Extract error message from RTK Query error
+      if (signinError && typeof signinError === 'object' && 'data' in signinError) {
+        const apiError = signinError as { data?: { message?: string; error?: string } };
+        if (apiError.data?.message) {
+          errorMessage = apiError.data.message;
+        } else if (apiError.data?.error) {
+          errorMessage = apiError.data.error;
+        }
+      }
+      
+      setError("root", {
+        type: "manual",
+        message: errorMessage,
+      });
+    }
+  }, [isError, signinError, setError]);
 
   useEffect(() => {
     // Restore user from localStorage on mount
@@ -80,6 +132,14 @@ const AuthForm = ({ isSigninOrUp }: AuthFormProps) => {
         <Text className="text-center !text-xl !font-semibold !text-[#402905]">
           Welcome to Circels!
         </Text>
+
+        {(errors.root || isError) && (
+          <div className="w-full rounded-lg border border-red-200 bg-red-50 p-3">
+            <Text className="text-center text-sm text-red-600">
+              {errors.root?.message || "Login failed. Please try again."}
+            </Text>
+          </div>
+        )}
 
         <div className="flex w-[250px] justify-between rounded-full bg-[#EAD0A880] px-[8px] py-[5px]">
           <Button
