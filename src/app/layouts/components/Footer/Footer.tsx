@@ -79,9 +79,10 @@ const Footer = () => {
       }}
     >
       <div className="flex h-full items-center justify-around">
-        <Image src={logo} alt="logo" className="!h-[75px] !w-[350px]" />
+        <Image src={logo} alt="logo" className="!h-[75px] !w-[350px] !hidden !sm:block" />
         <div>
-          <div className="flex items-start justify-center gap-12 text-white">
+          <div className="flex items-start justify-center text-white">
+            {/*
             {footerLinks.map((link) => (
               <div key={link.h5}>
                 <h5 className="mt-5 py-4 font-normal text-[#F2D19C]">
@@ -99,10 +100,11 @@ const Footer = () => {
                 </div>
               </div>
             ))}
+            */}
             <div>
               {socialLinks.map((social) => (
                 <div key={social.h5}>
-                  <h5 className="mt-5 py-4 font-normal text-[#F2D19C]">
+                  <h5 className="mt-2 py-2 font-normal text-[#F2D19C]">
                     {social.h5}
                   </h5>
                   <div className="flex w-32 cursor-pointer flex-wrap gap-4">

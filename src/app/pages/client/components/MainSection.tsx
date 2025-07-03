@@ -1,5 +1,5 @@
-import { AiOutlineApple } from "react-icons/ai";
-import { IoLogoGooglePlaystore } from "react-icons/io5";
+import  GooglePlayButton  from "./GooglePlayButton"
+import  AppleStoreButton  from "./AppleStoreButton"
 
 import hero from "~/assets/imgs/hero.jpg";
 import header from "~/assets/imgs/Header.png";
@@ -10,6 +10,15 @@ const MainSection = () => {
   const APKUrl = "https://play.google.com/store/games?device=windows";
   const IOSUrl = "https://www.apple.com/eg-ar/app-store/";
   const navigate = useNavigate();
+
+  const handleGooglePlayClick = (): void => {
+    window.open(APKUrl, '_blank');
+  };
+
+  const handleAppStoreClick = (): void => {
+    window.open(IOSUrl, '_blank');
+  };
+
   return (
     <BackgroundImage
       src={hero}
@@ -35,12 +44,19 @@ const MainSection = () => {
           Get Started
         </Button>
         <div className="flex gap-4">
+          {/*
           <Link to={APKUrl} target="_blank">
             <IoLogoGooglePlaystore className="h-14 w-14 cursor-pointer" />
           </Link>
           <Link to={IOSUrl} target="_blank">
             <AiOutlineApple className="h-14 w-14 cursor-pointer" />
           </Link>
+          */}
+
+<GooglePlayButton onClick={handleGooglePlayClick} size="md" />
+<AppleStoreButton onClick={handleAppStoreClick} size="md" />
+
+
         </div>
       </div>
     </BackgroundImage>
