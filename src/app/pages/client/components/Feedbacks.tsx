@@ -1,6 +1,5 @@
 import { Image } from "@mantine/core";
-// import vectorLeft from "~/assets/imgs/VectorLeft.png";
-// import vectorRight from "~/assets/imgs/VectorRight.png";
+
 import person1 from "~/assets/imgs/image3.png";
 import person2 from "~/assets/imgs/image4.png";
 import person3 from "~/assets/imgs/image5.png";
@@ -13,11 +12,11 @@ const Feedbacks = () => {
         <div className="w-full bg-vector_y bg-auto bg-left-top bg-no-repeat">
           <div className="pt-40">
             <div className="flex justify-center">
-              <h1 className="w-[70%] text-center font-serif text-[4rem] font-extrabold text-[#76552B]">
+              <h1 className="w-[70%] text-center font-serif text-[2.6rem] font-extrabold text-[#76552B]">
                 Enjoy our feed and share ratings, quotes, reads and more
               </h1>
             </div>
-            <div className="flex w-full justify-center flex-wrap gap-10 pt-24">
+            <div className="flex w-full flex-wrap justify-center gap-10 pt-24">
               {imgSrc.map((img, index) => (
                 <div key={index}>
                   <Image
@@ -28,7 +27,6 @@ const Feedbacks = () => {
                   />
                 </div>
               ))}
-              {/* <Image src={vectorRight} alt="vectorRight" /> */}
             </div>
           </div>
         </div>

@@ -50,11 +50,11 @@ const Clubs = () => {
   const OPTIONS: EmblaOptionsType = { axis: "y", loop: true };
   return (
     <>
-      <h1 className="w-full px-4 py-8 text-center font-serif text-[2rem] font-extrabold text-[#76552B]">
+      <h1 className="w-full px-4 py-5 text-center font-serif text-[2.7rem] font-extrabold text-[#76552B]">
         Explore Our Awesome Services
       </h1>
       <div className="container mx-auto">
-        <div className="flex flex-col-reverse items-center justify-center gap-10 py-20 md:flex-row">
+        <div className="flex flex-col-reverse items-center justify-center gap-10 py-4 md:flex-row">
           <EmblaCarousel slides={SLIDES} options={OPTIONS} />
         </div>
       </div>

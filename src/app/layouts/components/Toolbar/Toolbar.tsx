@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { AppShell, Button, Group, Image } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -12,7 +11,6 @@ const Toolbar = () => {
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const { isAuthenticated, user, signout } = useAuth();
-  console.log(user);
 
   useEffect(() => {
     const handleScroll = () => {

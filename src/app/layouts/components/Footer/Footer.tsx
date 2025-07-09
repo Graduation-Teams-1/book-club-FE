@@ -9,21 +9,6 @@ import {
 } from "@tabler/icons-react";
 import logo from "~/assets/imgs/logo.png";
 
-const footerLinks = [
-  {
-    h5: "Clubs",
-    p: ["Join a club", "start a club"],
-  },
-  {
-    h5: "Borrow & Lend",
-    p: ["Look for books", "Borrow ", "Offer to lend"],
-  },
-  {
-    h5: "More",
-    p: ["Feed", "Ai chat", "Profile", "Tracker"],
-  },
-];
-
 const socialLinks = [
   {
     h5: "Follow Us",
@@ -74,45 +59,30 @@ const Footer = () => {
       style={{
         position: "static",
         bottom: 0,
-        height: 280,
+        height: 100,
         backgroundColor: "#2B2824",
       }}
     >
-      <div className="flex h-full items-center justify-around">
-        <Image src={logo} alt="logo" className="!h-[75px] !w-[350px] !hidden !sm:block" />
-        <div>
-          <div className="flex items-start justify-center text-white">
-            {/*
-            {footerLinks.map((link) => (
-              <div key={link.h5}>
-                <h5 className="mt-5 py-4 font-normal text-[#F2D19C]">
-                  {link.h5}
-                </h5>
-                <div className="flex flex-col gap-4">
-                  {link.p.map((p) => (
-                    <p
-                      key={p}
-                      className="w-[4.2rem] cursor-pointer font-normal text-[#E1E1E1]"
-                    >
-                      {p}
-                    </p>
-                  ))}
+      <div className="flex h-full items-center justify-between gap-5 px-10">
+        <Image src={logo} alt="logo" className="!w-[200px]" />
+        {/* Copyright Section */}
+        <div className="flex items-center justify-center gap-2 text-[#E1E1E1]">
+          <span className="text-lg">©</span>
+          <span className="text-sm">
+            {new Date().getFullYear()} Book Club. All rights reserved.
+          </span>
+        </div>
+
+        <div className="flex items-start justify-center text-white">
+          <div>
+            {socialLinks.map((social) => (
+              <div key={social.h5}>
+                <h5 className="py-2 font-normal text-[#F2D19C]">{social.h5}</h5>
+                <div className="flex cursor-pointer flex-wrap gap-4">
+                  {social.icons}
                 </div>
               </div>
             ))}
-            */}
-            <div>
-              {socialLinks.map((social) => (
-                <div key={social.h5}>
-                  <h5 className="mt-2 py-2 font-normal text-[#F2D19C]">
-                    {social.h5}
-                  </h5>
-                  <div className="flex w-32 cursor-pointer flex-wrap gap-4">
-                    {social.icons}
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </div>
